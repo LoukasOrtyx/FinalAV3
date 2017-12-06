@@ -49,7 +49,7 @@ public class TelaInicialController implements Initializable {
             Scene Cena = new Scene(Raiz, Colunas * TamCasas, Linhas * TamCasas + 30);
             stage.setScene(Cena);
             
-        } catch (IOException | NumberFormatException ex) {
+        } catch (IOException | NumberFormatException | NegativeArraySizeException ex) {
             
             label = new Label("Formato Inválido");
             label.setFont(new Font("Times New Roman", 14));

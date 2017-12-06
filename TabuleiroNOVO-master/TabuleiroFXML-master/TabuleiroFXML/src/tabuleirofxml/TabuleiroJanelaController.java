@@ -7,8 +7,10 @@ package tabuleirofxml;
 import Tabuleiro.Bolsonaro;
 import Tabuleiro.Cajahyba;
 import Tabuleiro.Casa;
+import Tabuleiro.Paz;
 import Tabuleiro.Peça;
 import Tabuleiro.Tabuleiro;
+import Tabuleiro.Temer;
 import Tabuleiro.Tridente;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
@@ -30,7 +32,7 @@ import javafx.scene.paint.Color;
 public class TabuleiroJanelaController implements Initializable {
         boolean tracado=false;//ver se ta traçado o caminho
         boolean pegou=false;
-        int xvelho,yvelho,xnovo,ynovo;//xvideos yvideos
+        int xvelho,yvelho,xnovo,ynovo;
         Peça aux;
         char nomePeca;
         
@@ -40,23 +42,9 @@ public class TabuleiroJanelaController implements Initializable {
         this.TrataCliqueDoMouse = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                /*
-                Peça aux = new Cajahyba(0, i, j);
-                
-                Tab.InserirPeça(i, j, aux);
-                
-                Tab.getCasas()[i][j].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
-                
-                gridPane.add(Tab.getCasas()[i][j].getUnidade(), i, j);
-                
-                
-                */
+          
                 if(event.getSource() instanceof Casa) {
-                    
-                    System.out.print(((Casa) event.getSource()).getCoordX());
-                    System.out.println(" " + ((Casa) event.getSource()).getCoordY());
-                    
-                    System.out.println("clicou em casa" + (cont++));
+                   
                     if(pegou==true && Tab.CasaÉVerde(((Casa) event.getSource()).getCoordX(),((Casa) event.getSource()).getCoordY()) == true){   //MOVER
                                                                                                                         
                         Peça aux;
@@ -65,8 +53,7 @@ public class TabuleiroJanelaController implements Initializable {
                             nomePeca= Tab.getCasaEspecifica(xvelho, yvelho).getUnidade().getNome();
                             
                         } catch(Exception ex) {
-                            
-                            System.out.println("null" + (cont++));
+
                         }
                         
                         switch(nomePeca){
@@ -100,12 +87,36 @@ public class TabuleiroJanelaController implements Initializable {
                                 
                                  Tab.InserirPeça(((Casa) event.getSource()).getCoordX(), ((Casa) event.getSource()).getCoordY(), aux, TrataCliqueDoMouse);
                                  
-                                Tab.RemoverPeça(xvelho, yvelho);
+                                 Tab.RemoverPeça(xvelho, yvelho);
                                 
                                  Tab.getCasas()[((Casa) event.getSource()).getCoordX()][((Casa) event.getSource()).getCoordY()].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
                                 
                                 gridPane.add(Tab.getCasas()[((Casa) event.getSource()).getCoordX()][((Casa) event.getSource()).getCoordY()].getUnidade(), ((Casa) event.getSource()).getCoordX(),((Casa) event.getSource()).getCoordY());
                                 
+                                break;
+                                
+                            case 'P':   
+                             aux = new Paz(0, ((Casa) event.getSource()).getCoordX(), ((Casa) event.getSource()).getCoordY());
+                                
+                                 Tab.InserirPeça(((Casa) event.getSource()).getCoordX(), ((Casa) event.getSource()).getCoordY(), aux, TrataCliqueDoMouse);
+                                 
+                                Tab.RemoverPeça(xvelho, yvelho);
+                                
+                                 Tab.getCasas()[((Casa) event.getSource()).getCoordX()][((Casa) event.getSource()).getCoordY()].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
+                                
+                                gridPane.add(Tab.getCasas()[((Casa) event.getSource()).getCoordX()][((Casa) event.getSource()).getCoordY()].getUnidade(), ((Casa) event.getSource()).getCoordX(),((Casa) event.getSource()).getCoordY());
+                                break;
+                                
+                            case 'O':   
+                             aux = new Temer(0, ((Casa) event.getSource()).getCoordX(), ((Casa) event.getSource()).getCoordY());
+                                
+                                 Tab.InserirPeça(((Casa) event.getSource()).getCoordX(), ((Casa) event.getSource()).getCoordY(), aux, TrataCliqueDoMouse);
+                                 
+                                Tab.RemoverPeça(xvelho, yvelho);
+                                
+                                 Tab.getCasas()[((Casa) event.getSource()).getCoordX()][((Casa) event.getSource()).getCoordY()].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
+                                
+                                gridPane.add(Tab.getCasas()[((Casa) event.getSource()).getCoordX()][((Casa) event.getSource()).getCoordY()].getUnidade(), ((Casa) event.getSource()).getCoordX(),((Casa) event.getSource()).getCoordY());
                                 break;
                         }
                         pegou=false;
@@ -178,9 +189,37 @@ public class TabuleiroJanelaController implements Initializable {
                                 gridPane.add(Tab.getCasas()[((Peça) event.getSource()).getCoordX()][((Peça) event.getSource()).getCoordY()].getUnidade(), ((Peça) event.getSource()).getCoordX(),((Peça) event.getSource()).getCoordY());
                                 voltaCor(Tab);
                                 break;
+                                
+                            case 'P':
+                                
+                                 aux = new Paz(0, ((Peça) event.getSource()).getCoordX(), ((Peça) event.getSource()).getCoordY());
+                                
+                                 Tab.InserirPeça(((Peça) event.getSource()).getCoordX(), ((Peça) event.getSource()).getCoordY(), aux, TrataCliqueDoMouse);
+                                 
+                                Tab.RemoverPeça(xvelho, yvelho);
+                                
+                                 Tab.getCasas()[((Peça) event.getSource()).getCoordX()][((Peça) event.getSource()).getCoordY()].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
+                                
+                                gridPane.add(Tab.getCasas()[((Peça) event.getSource()).getCoordX()][((Peça) event.getSource()).getCoordY()].getUnidade(), ((Peça) event.getSource()).getCoordX(),((Peça) event.getSource()).getCoordY());
+                                voltaCor(Tab);
+                                break;
+                            
+                            case 'O':
+                                
+                                 aux = new Temer(0, ((Peça) event.getSource()).getCoordX(), ((Peça) event.getSource()).getCoordY());
+                                
+                                 Tab.InserirPeça(((Peça) event.getSource()).getCoordX(), ((Peça) event.getSource()).getCoordY(), aux, TrataCliqueDoMouse);
+                                 
+                                Tab.RemoverPeça(xvelho, yvelho);
+                                
+                                 Tab.getCasas()[((Peça) event.getSource()).getCoordX()][((Peça) event.getSource()).getCoordY()].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
+                                
+                                gridPane.add(Tab.getCasas()[((Peça) event.getSource()).getCoordX()][((Peça) event.getSource()).getCoordY()].getUnidade(), ((Peça) event.getSource()).getCoordX(),((Peça) event.getSource()).getCoordY());
+                                voltaCor(Tab);
+                                break;
                         }
                         removeuagr=true;
-                        System.out.println("SIRIRICA BABYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY " + (cont++));
+                        System.out.println("TIRIRICA BABYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY " + (cont++));
                        
                         //Tab.InserirPeça(((Casa) event.getSource()).getCoordX(), ((Casa) event.getSource()).getCoordY(), aux);
                         pegou=false;
@@ -284,6 +323,28 @@ public class TabuleiroJanelaController implements Initializable {
                 if(i == Linhas/2 && j == Colunas/2) {
                     
                    Peça aux = new Tridente(0, i, j);
+                    
+                   Tab.InserirPeça(i, j, aux);
+                    
+                   Tab.getCasas()[i][j].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
+                    
+                    gridPane.add(Tab.getCasas()[i][j].getUnidade(), i, j);
+                }
+                
+                if(i == Linhas / 4 && j == Colunas/4) {
+                    
+                   Peça aux = new Paz(0, i, j);
+                    
+                   Tab.InserirPeça(i, j, aux);
+                    
+                   Tab.getCasas()[i][j].getUnidade().setOnMouseClicked(TrataCliqueDoMouse);
+                    
+                    gridPane.add(Tab.getCasas()[i][j].getUnidade(), i, j);
+                }
+                
+                 if(i == Linhas / 6 && j == Colunas / 2) {
+                    
+                   Peça aux = new Temer(0, i, j);
                     
                    Tab.InserirPeça(i, j, aux);
                     
